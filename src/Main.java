@@ -3,15 +3,15 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args) {
 
-        HashMap<Integer, String> StringMap = new HashMap<>();
+        HashMap<String , String> StringMap = new HashMap<>();
         String NewValue, OutputString = "";
-        Integer i =0, FoundCounter=0;
-        final Integer MAXCount = 10000;
+        int i =0, FoundCounter=0;
+        final int MAXCount = 10000;
 
         while (i<MAXCount){
             NewValue = StringGenerator();
 
-            if (StringMap.containsValue(NewValue)){
+            if (StringMap.containsKey(NewValue)){
                 FoundCounter++;
                 //если более 10 раз подряд новое значение уже есть, выход из цикла
                 if(FoundCounter==100){
@@ -19,7 +19,7 @@ public class Main {
                     break;
                 }
             }else{
-                StringMap.put(i, NewValue);
+                StringMap.put(NewValue, NewValue);
                 i++;
                 FoundCounter=0;
             }
@@ -28,8 +28,10 @@ public class Main {
 
         System.out.printf("Создана коллекция из %d строковых значений:%n", StringMap.size());
 
-        for(i=0;i<StringMap.size();i++){
-            OutputString = OutputString + StringMap.get(i) + " ";
+       //System.out.println(StringMap);
+
+        for(HashMap.Entry<String, String> item:StringMap.entrySet()){
+            OutputString = OutputString + item.getValue() + " ";
             if(OutputString.length() > 100){
                 System.out.println(OutputString);
                 OutputString = "";
@@ -40,10 +42,10 @@ public class Main {
 
     // генератор случайного слова из символов шаблона SYMBOLS (каждый символ из шаблона - уникальный в слове)
     public static String StringGenerator(){
-        Integer Size, i = 0, SYMBOLSCount, SYMBOLNumber;
+        int Size, i = 0, SYMBOLSCount, SYMBOLNumber;
         String Result = "", RemainingSYMBOLS;
         final String SYMBOLS = "бульдозер";//строка шаблона с допустимыми символами
-        final Integer MINSize = 1;
+        final int MINSize = 1;
 
         RemainingSYMBOLS = SYMBOLS;
         SYMBOLSCount = RemainingSYMBOLS.length();
